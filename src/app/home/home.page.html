@@ -1,20 +1,31 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Cisterna</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="container">
+    <div class="cisterna">
+      <div class="agua" [style.height]="getWaterHeight()" [class.wave]="isPumpActive"></div>
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <div class="controls">
+      <ion-button (click)="togglePump()" expand="full" color="tertiary">
+        {{ isPumpActive ? 'Apagar bomba' : 'Encender bomba' }}
+      </ion-button>
+
+      <div *ngIf="isPumpActive" class="timer">
+        Tiempo: {{ pumpTimer }}s
+      </div>
+    </div>
+
+    <div class="phases">
+      <ion-button *ngFor="let phase of [1, 2, 3, 4]" 
+                  (click)="setPhase(phase)" 
+                  [color]="currentPhase === phase ? 'primary' : 'medium'">
+        Fase {{ phase }}
+      </ion-button>
+    </div>
   </div>
 </ion-content>
